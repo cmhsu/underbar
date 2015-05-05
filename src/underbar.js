@@ -39,7 +39,7 @@
   // last element.
   _.last = function(array, n) {
 	  if (n === undefined) {
-		  return array[array.length - 1];
+      return array[array.length - 1];
 	  }
 	  if (n > array.length) {
       return array.slice();
