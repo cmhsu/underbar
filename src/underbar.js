@@ -42,7 +42,7 @@
 		  return array[array.length - 1];
 	  }
 	  if (n > array.length) {
-		  return array.slice();
+      return array.slice();
 	  }
 	  return array.slice(array.length - n)
   };
