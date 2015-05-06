@@ -224,12 +224,10 @@
     // TIP: Try re-using reduce() here.
     var result = true;
     _.reduce(collection, function(passes, item) {
-      if (iterator === undefined && item === false) {
+      if (iterator === undefined && !!item === false) {
         result = false;
-      } else if (iterator !== undefined) {
-        if (!!iterator(item) === false) {
-          result = false;
-        }
+      } else if (iterator !== undefined && !!iterator(item) === false) {
+        result = false;
       }
     }, false);
     return result;
@@ -239,6 +237,16 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var result = false;
+    if (iterator === undefined) {
+      iterator = _.identity;
+    }
+    _.every(collection, function(item) {
+      if (!!iterator(item) === true) {
+        result = true;
+      }
+    });
+    return result;
   };
 
 
