@@ -38,11 +38,11 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-	  if (n === undefined) {
-		  return array[array.length - 1];
+    if (n === undefined) {
+      return array[array.length - 1];
 	  }
 	  if (n > array.length) {
-		  return array.slice();
+	    return array.slice();
 	  }
 	  return array.slice(array.length - n)
   };
@@ -54,16 +54,16 @@
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
 	  if (Array.isArray(collection)) {
-		  for (var i = 0; i < collection.length; i++) {
-			  iterator(collection[i], i, collection);
+      for (var i = 0; i < collection.length; i++) {
+		    iterator(collection[i], i, collection);
 		  }
 	  }
 	  else {
-		  var keys = Object.keys(collection);
+      var keys = Object.keys(collection);
 		  for (var i = 0; i < keys.length; i++) {
-			  var currentKey = keys[i];
-			  iterator(collection[currentKey], currentKey, collection);
-		  }
+		    var currentKey = keys[i];
+		    iterator(collection[currentKey], currentKey, collection);
+	    }
 	  }
   };
 
