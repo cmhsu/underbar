@@ -100,7 +100,7 @@
     // copying code in and modifying it
     var result = [];
     var passesTruthTest = _.filter(collection, test);
-    _.each(collection, function(value, index) {
+    _.each(collection, function(value) {
       if (_.indexOf(passesTruthTest, value) === -1) {
         result.push(value);
       }
@@ -110,6 +110,25 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var result = [];
+    if (arguments.length == 1) {
+      _.each(array, function(value) {
+        if (_.indexOf(result, value) === -1) {
+          result.push(value);
+        }
+      });
+    } else {
+      var iterator = arguments[2];
+      var transformed = [];
+      _.each(array, function(value) {
+        var transform = iterator(value);
+        if (_.indexOf(transformed, transform) === -1) {
+          transformed.push(transform);
+          result.push(value);
+        }
+      });
+    }
+    return result;
   };
 
 
