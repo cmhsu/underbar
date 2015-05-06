@@ -98,6 +98,14 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var result = [];
+    var passesTruthTest = _.filter(collection, test);
+    _.each(collection, function(value, index) {
+      if (_.indexOf(passesTruthTest, value) === -1) {
+        result.push(value);
+      }
+    });
+    return result;
   };
 
   // Produce a duplicate-free version of the array.
