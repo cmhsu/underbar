@@ -31,14 +31,14 @@
 
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
- 	_.first = function(array, n) {
+  _.first = function(array, n) {
     return n === undefined ? array[0] : array.slice(0, n);
-	};
+  };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element. Testing
-  _.last = function(array, n) {       
-	  if (n === undefined) {
+  _.last = function(array, n) {
+    if (n === undefined) {
       return array[array.length - 1];
     }
     if (n > array.length) {
