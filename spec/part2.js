@@ -271,23 +271,23 @@
 
     describe('shuffle', function() {
       it('should not modify the original object', function() {
-        var numbers = [4, 5, 6];
+        var numbers = [4, 5, 6, 7, 8, 9];
         var shuffled = _.shuffle(numbers).sort();
 
         expect(shuffled).to.not.equal(numbers);
-        expect(numbers).to.eql([4, 5, 6]);
+        expect(numbers).to.eql([4, 5, 6, 7, 8, 9]);
       });
       it('should have the same elements as the original object', function() {
-        var numbers = [4, 5, 6];
+        var numbers = [4, 5, 6, 7, 8, 9];
         var shuffled = _.shuffle(numbers).sort();
 
-        expect(shuffled).to.eql([4, 5, 6]);
+        expect(shuffled).to.eql([4, 5, 6, 7, 8, 9]);
       });
       it('should not be in the same order as the original object', function() {
-        var numbers = [4, 5, 6];
+        var numbers = [4, 5, 6, 7, 8, 9];
         var shuffled = _.shuffle(numbers);
 
-        expect(shuffled).to.not.eql([4, 5, 6]);
+        expect(shuffled).to.not.eql([4, 5, 6, 7, 8, 9]);
       });
     });
   });
