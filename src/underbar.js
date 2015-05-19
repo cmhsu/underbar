@@ -546,22 +546,14 @@
   //  expect(callback).to.have.been.calledTwice;
   //});
   _.throttle = function(func, wait) {
-    var firstTime = true;
     var callFunc = true;
     return function() {
-      if (firstTime === true) {
-        func();
-        firstTime = false;
-        callFunc = false;
-        setTimeout(function(){
-          callFunc = true;
-        }, wait);
-      } else if (firstTime === false && callFunc === true) {
+      if (callFunc === true) {
         func();
         callFunc = false;
-        setTimeout(function(){
+        setTimeout(function () {
           callFunc = true;
-        }, wait);
+        }, wait)
       }
     }
   };
