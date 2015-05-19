@@ -450,6 +450,22 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var result = [];
+    var args = [].slice.call(arguments);
+    args.sort(function(a, b) {return b.length - a.length});
+    for (var i = 0; i < args.length; i++) {
+      for (var j = 0; j < args[0].length; j++) {
+        if (i === 0) {
+          result[j] = [args[i][j]];
+        }
+        else if (!(args[i][j])) {
+            result[j].push(undefined);
+        } else {
+            result[j].push(args[i][j]);
+        }
+      }
+    }
+    return result;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -457,16 +473,47 @@
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
+    var result = [];
+    function flatten(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        if (!(Array.isArray(arr[i]))) {
+          result.push(arr[i]);
+        } else {
+          flatten(arr[i]);
+        }
+      }
+    }
+    flatten(nestedArray);
+    return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
+  //_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+  //=> [1, 2]
   _.intersection = function() {
+    var result = [];
+    var args = [].slice.call(arguments);
+    //args.sort(function(a, b) {return b.length - a.length});
+    var arr1 = args[0];
+    for (var i = 0; i < arr1.length; i++) {
+      var currentValue = arr1[i];
+      for (var j = 1; j < args.length; j++) {
+        if (_.indexOf(args[j], currentValue) === -1) {
+          break;
+        }
+        if (j === args.length - 1) {
+          result.push(currentValue);
+        }
+      }
+    }
+    return result;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
