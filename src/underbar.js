@@ -534,8 +534,38 @@
   // on this function.
   //
   // Note: This is difficult! It may take a while to implement.
+  //it('should return a function callable twice in the first 200ms', function() {
+  //  var fn = _.throttle(callback, 100);
+  //  fn(); // called
+  //  setTimeout(fn, 50);
+  //  setTimeout(fn, 100); // called
+  //  setTimeout(fn, 150);
+  //  setTimeout(fn, 199);
+  //  clock.tick(200);
+  //
+  //  expect(callback).to.have.been.calledTwice;
+  //});
   _.throttle = function(func, wait) {
+    var firstTime = true;
+    var callFunc = true;
+    return function() {
+      if (firstTime === true) {
+        func();
+        firstTime = false;
+        callFunc = false;
+        setTimeout(function(){
+          callFunc = true;
+        }, wait);
+      } else if (firstTime === false && callFunc === true) {
+        func();
+        callFunc = false;
+        setTimeout(function(){
+          callFunc = true;
+        }, wait);
+      }
+    }
   };
+
 }());
 
 
