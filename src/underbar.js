@@ -494,7 +494,6 @@
   _.intersection = function() {
     var result = [];
     var args = [].slice.call(arguments);
-    //args.sort(function(a, b) {return b.length - a.length});
     var arr1 = args[0];
     for (var i = 0; i < arr1.length; i++) {
       var currentValue = arr1[i];
@@ -512,8 +511,22 @@
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
+  // var result = _.difference([1, 2, 3, 4], [2, 30, 40], [1, 11, 111]);
+  // expect(result).to.eql([3, 4]);
   _.difference = function(array) {
-
+    var result = [];
+    var args = [].slice.call(arguments);
+    array = args[0];
+    var restArrays = [];
+    for (var i = 1; i < args.length; i++) {
+      restArrays = restArrays.concat(args[i]);
+    }
+    for (var i = 0; i < array.length; i++) {
+      if (_.indexOf(restArrays, array[i]) === -1) {
+        result.push(array[i]);
+      }
+    }
+    return result;
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
@@ -524,3 +537,19 @@
   _.throttle = function(func, wait) {
   };
 }());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
