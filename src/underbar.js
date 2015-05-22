@@ -218,20 +218,20 @@
     }, false);
   };
 
-
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
     var result = true;
     _.reduce(collection, function(passes, item) {
-      if (iterator === undefined && !!item === false) {
+      if (iterator === undefined && !item) {
         result = false;
-      } else if (iterator !== undefined && !!iterator(item) === false) {
+      } else if (iterator !== undefined && !iterator(item)) {
         result = false;
       }
     }, false);
     return result;
   };
+
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
@@ -242,7 +242,7 @@
       iterator = _.identity;
     }
     _.every(collection, function(item) {
-      if (!!iterator(item) === true) {
+      if (iterator(item)) {
         result = true;
       }
     });
@@ -429,13 +429,10 @@
       }
       var a = left.sortBy;
       var b = right.sortBy;
-      if (a !== b) {
-        if (a > b) {
-          return 1;
-        }
-        if (a < b) {
-          return -1;
-        }
+      if (a > b) {
+        return 1;
+      } else if (a < b) {
+        return -1;
       }
       return left.key - right.key;
     });
@@ -449,20 +446,16 @@
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
+
   _.zip = function() {
     var result = [];
     var args = [].slice.call(arguments);
     args.sort(function(a, b) {return b.length - a.length});
-    for (var i = 0; i < args.length; i++) {
-      for (var j = 0; j < args[0].length; j++) {
-        if (i === 0) {
-          result[j] = [args[i][j]];
-        }
-        else if (!(args[i][j])) {
-            result[j].push(undefined);
-        } else {
-            result[j].push(args[i][j]);
-        }
+    var length = args[0].length;
+    for (var i = 0; i < length; i++) {
+      result[i] = [];
+      for (var j = 0; j < arguments.length; j++) {
+        result[i].push(arguments[j][i]);
       }
     }
     return result;
