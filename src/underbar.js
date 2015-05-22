@@ -487,16 +487,16 @@
   _.intersection = function() {
     var result = [];
     var args = [].slice.call(arguments);
-    var arr1 = args[0];
-    for (var i = 0; i < arr1.length; i++) {
-      var currentValue = arr1[i];
-      for (var j = 1; j < args.length; j++) {
+    var array1 = args[0];
+    for (var i = 0; i < array1.length; i++) { //loop through the first array.
+      var currentValue = array1[i];
+      for (var j = 1; j < args.length; j++) { //loop through the remaining arrays.
         if (_.indexOf(args[j], currentValue) === -1) {
           break;
         }
-        if (j === args.length - 1) {
-          result.push(currentValue);
-        }
+      }
+      if (j === args.length) {
+        result.push(currentValue);
       }
     }
     return result;
