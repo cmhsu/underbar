@@ -222,15 +222,17 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-    var result = true;
-    _.reduce(collection, function(passes, item) {
-      if (iterator === undefined && !item) {
-        result = false;
-      } else if (iterator !== undefined && !iterator(item)) {
-        result = false;
+    if (iterator === undefined) {
+      iterator = _.identity;
+    }
+    return _.reduce(collection, function(passes, item) {
+      if (!iterator(item)) {
+        return false;
+      } else if (passes === false) {
+        return false;
       }
-    }, false);
-    return result;
+      return true;
+    }, true);
   };
 
 
@@ -541,14 +543,16 @@
   //});
   _.throttle = function(func, wait) {
     var callFunc = true;
+    var result;
     return function() {
       if (callFunc === true) {
-        func();
+        result = func.apply(this, arguments);
         callFunc = false;
-        setTimeout(function () {
+        setTimeout(function() {
           callFunc = true;
-        }, wait)
+        }, wait);
       }
+      return result;
     }
   };
 
